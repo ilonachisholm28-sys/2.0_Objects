@@ -29,7 +29,7 @@ public class Astronaut {
         xpos = pXpos;
         ypos = pYpos;
         dx =7;
-        dy =0;
+        dy =1;
         width = 60;
         height = 60;
         isAlive = true;
@@ -42,18 +42,30 @@ public class Astronaut {
         xpos = xpos + dx;
         ypos = ypos + dy;
 
+
     }
     public void bounce(){
 
-        if(xpos>1000)
-        if (xpos<0)
-        dx
-        {
-
+        if(xpos>1000-width) {
             dx = -dx;
         }
+
+        if(xpos<0) {
+            dx = -dx;
+        }
+        if(ypos>700-height) {
+            dy = -dy;
+        }
+
+        if(ypos<0) {
+            dy = -dy;//flipping speed  (so it doesnt speed up)
     }
-}
+
+}}
+
+
+
+
 
 
 
