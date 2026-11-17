@@ -12,11 +12,10 @@
 //import java.awt.Canvas;
 
 //Graphics Libraries
-import java.awt.Graphics2D;
-import java.awt.image.BufferStrategy;
+
+import javax.swing.*;
 import java.awt.*;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import java.awt.image.BufferStrategy;
 
 
 //*******************************************************************************
@@ -108,10 +107,38 @@ public class BasicGameApp implements Runnable {
 		astro.move();
 		astro2.move();
 		astro3.move();
+		crashing();
 
 
 
 	}
+
+	public void crashing() {
+//use "and" when both r tru
+		//use "or" when either could be true
+		if (astro.hitbox.intersects(astro2.hitbox) && astro2.isCrashing == false) {
+			System.out.println("crash");
+			System.out.println(astro.isCrashing);
+			//make them bounce off eachother
+			//make one die
+			//follow eachother
+			//make them go faster
+			astro.dy = astro.dy + 4;
+			//combine into one big astronaut
+			//make them bigger
+			astro.height = astro.height + 5;
+			//make another one appear
+			astro.isCrashing = true;
+
+		}
+
+		if (!astro.hitbox.intersects(astro2.hitbox)) {//are astro and astro2 not touching
+			astro.isCrashing = false;
+
+
+		}
+	}
+
 	
    //Pauses or sleeps the computer for the amount specified in milliseconds
    public void pause(int time ){
@@ -164,6 +191,9 @@ public class BasicGameApp implements Runnable {
 		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
 		g.drawImage(astroPic, astro2.xpos, astro2.ypos, astro2.width, astro2.height, null);
 		g.drawImage(astroPic, astro3.xpos, astro3.ypos, astro3.width, astro3.height, null);
+		g.drawRect(astro.hitbox.x, astro.hitbox.y, astro.hitbox.width, astro.hitbox.height);
+		g.drawRect(astro2.hitbox.x, astro2.hitbox.y, astro2.hitbox.width, astro2.hitbox.height);
+
 
 
 //end coding here!!
