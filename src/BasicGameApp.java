@@ -120,10 +120,12 @@ public class BasicGameApp implements Runnable {
 			System.out.println("crash");
 			System.out.println(astro.isCrashing);
 			//make them bounce off eachother
+
 			//make one die
 			//follow eachother
 			//make them go faster
-			astro.dy = astro.dy + 4;
+			astro.dx = -astro.dx;  //makes it bounce off eachother
+			astro2.dx = -astro2.dx; //makes it bounce of eachother
 			//combine into one big astronaut
 			//make them bigger
 			astro.height = astro.height + 5;
