@@ -38,6 +38,7 @@ public class BasicGameApp implements Runnable {
    
 	public BufferStrategy bufferStrategy;
 	public Image astroPic;
+	public Image galaxyPic;
 
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
@@ -66,6 +67,8 @@ public class BasicGameApp implements Runnable {
       //variable and objects
       //create (construct) the objects needed for the game and load up 
 		astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png"); //load the picture
+		galaxyPic = Toolkit.getDefaultToolkit().getImage("galaxy.png"); //load the picture
+
 		astro = new Astronaut(10,100);
 		astro2 = new Astronaut (20,50);
 		astro3 = new Astronaut (30,90);
@@ -116,16 +119,19 @@ public class BasicGameApp implements Runnable {
 	public void crashing() {
 //use "and" when both r tru
 		//use "or" when either could be true
-		if (astro.hitbox.intersects(astro2.hitbox) && astro2.isCrashing == false) {
+		if (astro.hitbox.intersects(astro2.hitbox) && astro.isCrashing == false && astro2.isAlive == true) {
 			System.out.println("crash");
 			System.out.println(astro.isCrashing);
 			//make them bounce off eachother
 
 			//make one die
+			astro2.isAlive = false;
 			//follow eachother
 			//make them go faster
 			astro.dx = -astro.dx;  //makes it bounce off eachother
 			astro2.dx = -astro2.dx; //makes it bounce of eachother
+			astro.dy = -astro.dy;  //makes it bounce off eachother
+			astro2.dy = -astro2.dy;
 			//combine into one big astronaut
 			//make them bigger
 			astro.height = astro.height + 5;
@@ -189,9 +195,14 @@ public class BasicGameApp implements Runnable {
 		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
 		g.clearRect(0, 0, WIDTH, HEIGHT);
 //start codinf from here
-      //draw the image of the astronaut
+		g.drawImage(galaxyPic, 0, 0, WIDTH, HEIGHT, null);
+
+		//draw the image of the astronaut
 		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
-		g.drawImage(astroPic, astro2.xpos, astro2.ypos, astro2.width, astro2.height, null);
+
+		if (astro2.isAlive == true) {
+			g.drawImage(astroPic, astro2.xpos, astro2.ypos, astro2.width, astro2.height, null);
+		}
 		g.drawImage(astroPic, astro3.xpos, astro3.ypos, astro3.width, astro3.height, null);
 		g.drawRect(astro.hitbox.x, astro.hitbox.y, astro.hitbox.width, astro.hitbox.height);
 		g.drawRect(astro2.hitbox.x, astro2.hitbox.y, astro2.hitbox.width, astro2.hitbox.height);
